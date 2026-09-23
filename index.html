@@ -71,6 +71,13 @@
   .sep{
     flex:0 0 auto; color:var(--muted); font-size:1rem;
   }
+  .link.visited{
+    background:var(--bg);
+    opacity:.6;
+  }
+  .link.visited .tag::after{
+    content:" ✓";
+  }
 </style>
 </head>
 <body>
@@ -82,10 +89,25 @@
 <main id="list"></main>
 
 <script>
-const rows = [["https://us.woodcoder.com/collection/wdc-100564", "https://woodcoder.com/s/NYKYke"], ["https://us.woodcoder.com/collection/wdc-100522", "https://woodcoder.com/s/4y9q14"], ["https://us.woodcoder.com/collection/wdc-100566", "https://woodcoder.com/s/4x9Q6e"], ["https://us.woodcoder.com/collection/wdc-100357", "https://woodcoder.com/s/VMm7vV"], ["https://us.woodcoder.com/collection/wdc-100504", "https://woodcoder.com/s/NEMBGN"], ["https://us.woodcoder.com/collection/wdc-100419", "https://woodcoder.com/s/Vwo03V"], ["https://us.woodcoder.com/collection/wdc-100420", "https://woodcoder.com/s/Ng5RYe"], ["https://us.woodcoder.com/collection/wdc-100354", "https://woodcoder.com/s/N2KJP4"], ["https://us.woodcoder.com/collection/wdc-100599", "https://woodcoder.com/s/VdKqme"], ["https://us.woodcoder.com/collection/wdc-100383", "https://woodcoder.com/s/4aMmd4"], ["https://us.woodcoder.com/collection/wdc-100474", "https://woodcoder.com/s/VJq7Le"], ["https://us.woodcoder.com/collection/wdc-100505", "https://woodcoder.com/s/V9kQl4"], ["https://us.woodcoder.com/collection/wdc-100430", "https://woodcoder.com/s/Vp9aPN"], ["https://us.woodcoder.com/collection/wdc-100567", "https://woodcoder.com/s/4y9q74"], ["https://us.woodcoder.com/collection/wdc-100411", "https://woodcoder.com/s/4y9q74"], ["https://us.woodcoder.com/collection/wdc-100364", "https://woodcoder.com/s/4x9Qde"], ["https://us.woodcoder.com/collection/wdc-100469", "https://woodcoder.com/s/VMm7DV"], ["https://us.woodcoder.com/collection/wdc-100368", "https://woodcoder.com/s/NEMBJN"], ["https://us.woodcoder.com/collection/wdc-100596", "https://woodcoder.com/s/VwoGYV"], ["https://us.woodcoder.com/collection/wdc-100513", "https://woodcoder.com/s/Ng5b5e"], ["https://us.woodcoder.com/collection/wdc-100472", "https://woodcoder.com/s/N2Kbr4"], ["https://us.woodcoder.com/collection/wdc-100597", "https://woodcoder.com/s/VdKb5e"], ["https://us.woodcoder.com/collection/wdc-100531", "https://woodcoder.com/s/4aMR54"], ["https://us.woodcoder.com/collection/wdc-100609", "https://woodcoder.com/s/VJqYbe"], ["https://us.woodcoder.com/collection/wdc-100595", "https://woodcoder.com/s/V9kMn4"], ["https://us.woodcoder.com/collection/wdc-100565", "https://woodcoder.com/s/Vp9BkN"]];
+const rows = [["https://us.woodcoder.com/collection/wdc-100564", "https://woodcoder.com/s/NYKYke"], ["https://us.woodcoder.com/collection/wdc-100522", "https://woodcoder.com/s/4y9q14"], ["https://us.woodcoder.com/collection/wdc-100566", "https://woodcoder.com/s/4x9Q6e"], ["https://us.woodcoder.com/collection/wdc-100357", "https://woodcoder.com/s/VMm7vV"], ["https://us.woodcoder.com/collection/wdc-100504", "https://woodcoder.com/s/NEMBGN"], ["https://us.woodcoder.com/collection/wdc-100419", "https://woodcoder.com/s/Vwo03V"], ["https://us.woodcoder.com/collection/wdc-100420", "https://woodcoder.com/s/Ng5RYe"], ["https://us.woodcoder.com/collection/wdc-100354", "https://woodcoder.com/s/N2KJP4"], ["https://us.woodcoder.com/collection/wdc-100599", "https://woodcoder.com/s/VdKqme"], ["https://us.woodcoder.com/collection/wdc-100383", "https://woodcoder.com/s/4aMmd4"], ["https://us.woodcoder.com/collection/wdc-100474", "https://woodcoder.com/s/VJq7Le"], ["https://us.woodcoder.com/collection/wdc-100505", "https://woodcoder.com/s/V9kQl4"], ["https://us.woodcoder.com/collection/wdc-100430", "https://woodcoder.com/s/Vp9aPN"], ["https://us.woodcoder.com/collection/wdc-100567", "https://woodcoder.com/s/4y9q74"], ["https://us.woodcoder.com/collection/wdc-100411", "https://woodcoder.com/s/4LXvO4"], ["https://us.woodcoder.com/collection/wdc-100364", "https://woodcoder.com/s/4x9Qde"], ["https://us.woodcoder.com/collection/wdc-100469", "https://woodcoder.com/s/VMm7DV"], ["https://us.woodcoder.com/collection/wdc-100368", "https://woodcoder.com/s/NEMBJN"], ["https://us.woodcoder.com/collection/wdc-100596", "https://woodcoder.com/s/VwoGYV"], ["https://us.woodcoder.com/collection/wdc-100513", "https://woodcoder.com/s/Ng5b5e"], ["https://us.woodcoder.com/collection/wdc-100472", "https://woodcoder.com/s/N2Kbr4"], ["https://us.woodcoder.com/collection/wdc-100597", "https://woodcoder.com/s/VdKb5e"], ["https://us.woodcoder.com/collection/wdc-100531", "https://woodcoder.com/s/4aMR54"], ["https://us.woodcoder.com/collection/wdc-100609", "https://woodcoder.com/s/VJqYbe"], ["https://us.woodcoder.com/collection/wdc-100595", "https://woodcoder.com/s/V9kMn4"], ["https://us.woodcoder.com/collection/wdc-100565", "https://woodcoder.com/s/Vp9BkN"]];
 
 const list = document.getElementById('list');
 document.getElementById('count').textContent = rows.length + ' link pairs';
+
+let visited = {};
+try {
+  visited = JSON.parse(localStorage.getItem('visitedLinks') || '{}');
+} catch (e) {
+  visited = {};
+}
+
+function markVisited(key, el) {
+  visited[key] = true;
+  try {
+    localStorage.setItem('visitedLinks', JSON.stringify(visited));
+  } catch (e) {}
+  el.classList.add('visited');
+}
 
 rows.forEach(([before, after], i) => {
   const row = document.createElement('div');
@@ -95,23 +117,28 @@ rows.forEach(([before, after], i) => {
   idx.className = 'idx';
   idx.textContent = i + 1;
 
+  const beforeKey = 'b' + i;
+  const afterKey = 'a' + i;
+
   const a1 = document.createElement('a');
-  a1.className = 'link before';
+  a1.className = 'link before' + (visited[beforeKey] ? ' visited' : '');
   a1.href = before;
   a1.target = '_blank';
   a1.rel = 'noopener noreferrer';
   a1.innerHTML = '<span class="tag">Before</span><span class="tap">Open</span>';
+  a1.addEventListener('click', () => markVisited(beforeKey, a1));
 
   const sep = document.createElement('div');
   sep.className = 'sep';
   sep.textContent = '↔';
 
   const a2 = document.createElement('a');
-  a2.className = 'link after';
+  a2.className = 'link after' + (visited[afterKey] ? ' visited' : '');
   a2.href = after;
   a2.target = '_blank';
   a2.rel = 'noopener noreferrer';
   a2.innerHTML = '<span class="tag">After</span><span class="tap">Open</span>';
+  a2.addEventListener('click', () => markVisited(afterKey, a2));
 
   row.appendChild(idx);
   row.appendChild(a1);
