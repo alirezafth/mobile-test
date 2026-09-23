@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Before / After Links</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --card:#ffffff; --ink:#2b2621; --muted:#8a8074;
+    --before:#c9542f; --after:#3f7a5c; --line:#e7e1d5;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+    box-sizing:border-box;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1916; --card:#26221e; --ink:#efe9e0; --muted:#a39a8c;
+      --before:#e07a52; --after:#63b98e; --line:#3a342d;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1916; --card:#26221e; --ink:#efe9e0; --muted:#a39a8c;
+    --before:#e07a52; --after:#63b98e; --line:#3a342d;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Segoe UI', Tahoma, Arial, sans-serif;
+    min-height:100%;
+  }
+  header{
+    padding:22px 16px 14px; text-align:center;
+  }
+  header h1{
+    margin:0 0 4px; font-size:1.3rem; font-weight:700;
+  }
+  header p{margin:0; color:var(--muted); font-size:.85rem;}
+  .count{
+    display:inline-block; margin-top:8px; padding:4px 12px;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:20px; font-size:.75rem; color:var(--muted);
+  }
+  main{max-width:640px; margin:0 auto; padding:6px 12px 40px;}
+  .row{
+    display:flex; align-items:center; gap:8px;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:10px 12px; margin-bottom:10px;
+  }
+  .idx{
+    flex:0 0 24px; text-align:center; font-size:.75rem;
+    color:var(--muted); font-weight:600;
+  }
+  .link{
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    text-decoration:none; padding:10px 6px; border-radius:10px;
+    min-width:0;
+  }
+  .link .tag{
+    font-size:.68rem; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; margin-bottom:4px;
+  }
+  .link .tap{
+    font-size:.85rem; font-weight:600;
+  }
+  .before{color:var(--before);}
+  .before .tap{color:var(--ink);}
+  .after{color:var(--after);}
+  .after .tap{color:var(--ink);}
+  .link:active{ background:var(--bg); }
+  .sep{
+    flex:0 0 auto; color:var(--muted); font-size:1rem;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Before / After Links</h1>
+  <p>Tap a link to open it</p>
+  <div class="count" id="count"></div>
+</header>
+<main id="list"></main>
+
+<script>
+const rows = [["https://us.woodcoder.com/collection/wdc-100564", "https://woodcoder.com/s/NYKYke"], ["https://us.woodcoder.com/collection/wdc-100522", "https://woodcoder.com/s/4y9q14"], ["https://us.woodcoder.com/collection/wdc-100566", "https://woodcoder.com/s/4x9Q6e"], ["https://us.woodcoder.com/collection/wdc-100357", "https://woodcoder.com/s/VMm7vV"], ["https://us.woodcoder.com/collection/wdc-100504", "https://woodcoder.com/s/NEMBGN"], ["https://us.woodcoder.com/collection/wdc-100419", "https://woodcoder.com/s/Vwo03V"], ["https://us.woodcoder.com/collection/wdc-100420", "https://woodcoder.com/s/Ng5RYe"], ["https://us.woodcoder.com/collection/wdc-100354", "https://woodcoder.com/s/N2KJP4"], ["https://us.woodcoder.com/collection/wdc-100599", "https://woodcoder.com/s/VdKqme"], ["https://us.woodcoder.com/collection/wdc-100383", "https://woodcoder.com/s/4aMmd4"], ["https://us.woodcoder.com/collection/wdc-100474", "https://woodcoder.com/s/VJq7Le"], ["https://us.woodcoder.com/collection/wdc-100505", "https://woodcoder.com/s/V9kQl4"], ["https://us.woodcoder.com/collection/wdc-100430", "https://woodcoder.com/s/Vp9aPN"], ["https://us.woodcoder.com/collection/wdc-100567", "https://woodcoder.com/s/4y9q74"], ["https://us.woodcoder.com/collection/wdc-100411", "https://woodcoder.com/s/4y9q74"], ["https://us.woodcoder.com/collection/wdc-100364", "https://woodcoder.com/s/4x9Qde"], ["https://us.woodcoder.com/collection/wdc-100469", "https://woodcoder.com/s/VMm7DV"], ["https://us.woodcoder.com/collection/wdc-100368", "https://woodcoder.com/s/NEMBJN"], ["https://us.woodcoder.com/collection/wdc-100596", "https://woodcoder.com/s/VwoGYV"], ["https://us.woodcoder.com/collection/wdc-100513", "https://woodcoder.com/s/Ng5b5e"], ["https://us.woodcoder.com/collection/wdc-100472", "https://woodcoder.com/s/N2Kbr4"], ["https://us.woodcoder.com/collection/wdc-100597", "https://woodcoder.com/s/VdKb5e"], ["https://us.woodcoder.com/collection/wdc-100531", "https://woodcoder.com/s/4aMR54"], ["https://us.woodcoder.com/collection/wdc-100609", "https://woodcoder.com/s/VJqYbe"], ["https://us.woodcoder.com/collection/wdc-100595", "https://woodcoder.com/s/V9kMn4"], ["https://us.woodcoder.com/collection/wdc-100565", "https://woodcoder.com/s/Vp9BkN"]];
+
+const list = document.getElementById('list');
+document.getElementById('count').textContent = rows.length + ' link pairs';
+
+rows.forEach(([before, after], i) => {
+  const row = document.createElement('div');
+  row.className = 'row';
+
+  const idx = document.createElement('div');
+  idx.className = 'idx';
+  idx.textContent = i + 1;
+
+  const a1 = document.createElement('a');
+  a1.className = 'link before';
+  a1.href = before;
+  a1.target = '_blank';
+  a1.rel = 'noopener noreferrer';
+  a1.innerHTML = '<span class="tag">Before</span><span class="tap">Open</span>';
+
+  const sep = document.createElement('div');
+  sep.className = 'sep';
+  sep.textContent = '↔';
+
+  const a2 = document.createElement('a');
+  a2.className = 'link after';
+  a2.href = after;
+  a2.target = '_blank';
+  a2.rel = 'noopener noreferrer';
+  a2.innerHTML = '<span class="tag">After</span><span class="tap">Open</span>';
+
+  row.appendChild(idx);
+  row.appendChild(a1);
+  row.appendChild(sep);
+  row.appendChild(a2);
+  list.appendChild(row);
+});
+</script>
+</body>
+</html>
